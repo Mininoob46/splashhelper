@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "splashhelper",
+	"version": "${version}",
+	"name": "Splash Helper",
+	"description": "Highlights the best mega hub in the SkyBlock and Dungeon Hub Selector and copies hub splash messages.",
+	"authors": ["Mininoob46"],
+	"contact": {},
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": ["com.splashhelper.SplashHelperClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.0",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

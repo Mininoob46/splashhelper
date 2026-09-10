@@ -1,0 +1,49 @@
+plugins {
+	id "net.fabricmc.fabric-loom" version "1.15-SNAPSHOT"
+	id "maven-publish"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// Add repositories here if you need them.
+}
+
+loom {
+	// Minecraft 26.1.2 ships unobfuscated, so there is no mappings artifact
+	// and no remapping step - Loom just compiles straight against the game.
+}
+
+dependencies {
+	// Minecraft 26.1.2 is unobfuscated - do NOT add a "mappings" dependency.
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+	// On 26.1+ the "mod*" configurations (modImplementation, modApi, etc.)
+	// are replaced by the plain implementation/api/compileOnly configurations.
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+java {
+	sourceCompatibility = JavaVersion.toVersion(project.java_version)
+	targetCompatibility = JavaVersion.toVersion(project.java_version)
+
+	withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = Integer.parseInt(project.java_version)
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
